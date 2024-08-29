@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startup Success Predictor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select {
+            padding: 8px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Startup Success Predictor</h1>
+        <form action="/predict" method="POST">
+            <!-- Category List dropdown -->
+            <label for="category_list">Category List:</label>
+            <select id="category_list" name="category_list" required>
+                {% for category in unique_values['category_list'] %}
+                    <option value="{{ category }}">{{ category }}</option>
+                {% endfor %}
+            </select>
+
+            <!-- Funding Total USD input -->
+            <label for="funding_total_usd">Funding Total (USD):</label>
+            <input type="number" id="funding_total_usd" name="funding_total_usd" required>
+
+            <!-- Country Code dropdown -->
+            <label for="country_code">Country Code:</label>
+            <select id="country_code" name="country_code" required>
+                {% for country in unique_values['country_code'] %}
+                    <option value="{{ country }}">{{ country }}</option>
+                {% endfor %}
+            </select>
+
+            <!-- State Code dropdown -->
+            <label for="state_code">State Code:</label>
+            <select id="state_code" name="state_code" required>
+                {% for state in unique_values['state_code'] %}
+                    <option value="{{ state }}">{{ state }}</option>
+                {% endfor %}
+            </select>
+
+            <!-- Region dropdown -->
+            <label for="region">Region:</label>
+            <select id="region" name="region" required>
+                {% for region in unique_values['region'] %}
+                    <option value="{{ region }}">{{ region }}</option>
+                {% endfor %}
+            </select>
+
+            <!-- City dropdown -->
+            <label for="city">City:</label>
+            <select id="city" name="city" required>
+                {% for city in unique_values['city'] %}
+                    <option value="{{ city }}">{{ city }}</option>
+                {% endfor %}
+            </select>
+
+            <!-- Funding Rounds input -->
+            <label for="funding_rounds">Funding Rounds:</label>
+            <input type="number" id="funding_rounds" name="funding_rounds" required>
+
+            <!-- Age of Company input -->
+            <label for="age_of_company">Age of Company (years):</label>
+            <input type="number" id="age_of_company" name="age_of_company" required>
+
+            <!-- Years Since Last Funding input -->
+            <label for="years_since_last_funding">Years Since Last Funding:</label>
+            <input type="number" id="years_since_last_funding" name="years_since_last_funding" required>
+
+            <!-- Years Since First Funding input -->
+            <label for="years_since_first_funding">Years Since First Funding:</label>
+            <input type="number" id="years_since_first_funding" name="years_since_first_funding" required>
+
+            <button type="submit">Predict</button>
+        </form>
+        {% if prediction_text %}
+            <h2>{{ prediction_text }}</h2>
+        {% endif %}
+    </div>
+</body>
+</html>
